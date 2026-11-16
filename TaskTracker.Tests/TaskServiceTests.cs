@@ -1,3 +1,5 @@
+using TaskTracker.Api;
+
 namespace TaskTracker.Tests;
 
 [TestClass]
