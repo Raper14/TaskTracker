@@ -47,6 +47,16 @@ jobs:
           dotnet sonarscanner end /d:sonar.token="$env:SONAR_TOKEN"
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
+      - name: Show Quality Gate details
+        shell: bash
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          url="https://sonarcloud.io/api/qualitygates/project_status?projectKey=raper14"
+          if [ "$GITHUB_EVENT_NAME" = "pull_request" ]; then url="${url}&pullRequest=${PR_NUMBER}"; fi
+          curl --fail --silent --show-error --user "$SONAR_TOKEN:" "$url"
+
       - name: Check Quality Gate
         uses: sonarsource/sonarqube-quality-gate-action@master
         with:
