@@ -61,7 +61,7 @@ jobs:
           fi
 
       - name: Check Quality Gate
-        uses: sonarsource/sonarqube-quality-gate-action@master
+        uses: sonarsource/sonarqube-quality-gate-action@3cfda8eca512232cb42bd40fd01567cba471db39
         with:
           scanMetadataReportFile: .sonarqube/out/.sonar/report-task.txt
           pollingTimeoutSec: 300
