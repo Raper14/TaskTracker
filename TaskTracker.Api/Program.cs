@@ -1,3 +1,5 @@
+using TaskTracker.Api;
+
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSingleton<TaskService>();
 
@@ -12,6 +14,9 @@ app.MapPost("/tasks", (TaskRequest r, TaskService s) =>
 app.MapPost("/tasks/{id:int}/complete", (int id, TaskService s) =>
     s.Complete(id) ? Results.Ok() : Results.NotFound());
 
-app.Run();
+await app.RunAsync();
 
-public record TaskRequest(string Title);
+namespace TaskTracker.Api
+{
+    public record TaskRequest(string Title);
+}

@@ -1,3 +1,5 @@
+namespace TaskTracker.Api;
+
 public record TaskItem(int Id, string Title, bool IsDone);
 
 public sealed class TaskService
