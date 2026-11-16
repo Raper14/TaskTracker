@@ -56,6 +56,9 @@ jobs:
           url="https://sonarcloud.io/api/qualitygates/project_status?projectKey=raper14"
           if [ "$GITHUB_EVENT_NAME" = "pull_request" ]; then url="${url}&pullRequest=${PR_NUMBER}"; fi
           curl --fail --silent --show-error --user "$SONAR_TOKEN:" "$url"
+          if [ "$GITHUB_EVENT_NAME" = "pull_request" ]; then
+            curl --fail --silent --show-error --user "$SONAR_TOKEN:" "https://sonarcloud.io/api/issues/search?componentKeys=raper14&pullRequest=${PR_NUMBER}&types=VULNERABILITY&resolved=false"
+          fi
 
       - name: Check Quality Gate
         uses: sonarsource/sonarqube-quality-gate-action@master
